@@ -32,6 +32,11 @@ function draw() {
     generateFood();
   }
 
+  if (snake.endGame()) {
+    background(255, 0, 0);
+    noLoop();
+  }
+
   fill(255, 0, 0);
   rect(food.x, food.y, 1, 1);
 }

@@ -9,7 +9,7 @@ class Snake {
   }
 
   update() {
-    let head = this.body[this.body.length - 1].copy();
+    let head = this.getHead();
     this.body.shift();
     head.x += this.xdir;
     head.y += this.ydir;
@@ -30,12 +30,12 @@ class Snake {
   }
 
   grow() {
-    let head = this.body[this.body.length - 1].copy();
+    let head = this.getHead();
     this.body.push(createVector(head.x, head.y));
   }
 
   eat(foodPosition) {
-    let head = this.body[this.body.length - 1].copy();
+    let head = this.getHead();
 
     if (head.x == foodPosition.x && head.y == foodPosition.y) {
       print("FOOD EATEN");
@@ -47,9 +47,22 @@ class Snake {
 
   setDir(x, y) {
     // need to check if the snake is at the margin of the world
-    console.log("x,y", x, y);
+    // console.log("x,y", x, y);
     this.xdir = x;
     this.ydir = y;
-    console.log("this x,y", this.xdir, this.ydir);
+    // console.log("this x,y", this.xdir, this.ydir);
+  }
+
+  endGame() {
+    let { x, y } = this.getHead();
+    if (x < 0 || x > w - 1 || y < 0 || y > h - 1) {
+      print("END GAME");
+      return true;
+    }
+    return false;
+  }
+
+  getHead() {
+    return this.body[this.body.length - 1].copy();
   }
 }
